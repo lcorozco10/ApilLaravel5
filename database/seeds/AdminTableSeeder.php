@@ -1,34 +1,28 @@
 <?php
 use Illuminate\Database\Seeder;
-use Faker\Factory as Fake;
 /**
 * 
 */
 class AdminTableSeeder extends Seeder
 {
 	
-	public function run($value='')
-    {
-        $fake = Fake::create();
+	public function run($value='')    {
+        $id = \DB::table('users')->insertGetId(
+            array(
+                'first_name' => 'Luis',
+                'last_name' => 'Orozco',
+                'email' => 'lcorozco10@gmail.com',
+                'password' => \Hash::make('123456789'),
+                'type' => 'admin'
+            )
+        );
 
-        for ($i = 0; $i < 30; $i++) {
-           $id = \DB::table('users')->insertGetId(
-                $arrayName = array(
-                    'first_name' => $fake->firstName,
-                    'last_name' => $fake->lastName,
-                    'email' => $fake->unique()->email,
-                    'password' => \Hash::make('123456'),
-                    'type' => 'admin'
+        \DB::table('user_profiles')->insert(
+            array(
+                'user_id' => $id,
+                'birthDate' => '2015/03/31'
+            ))
+        ;
 
-                )
-            );
-            \DB::table('user_profile')->insert(
-                array(
-                    'user_id' => $id,
-                    'fscebook' => $fake->userName,
-                    'twitter' => $fake->userName
-                )
-            );
-        }
     }
 }

@@ -23,11 +23,13 @@ class UserTableSeeder extends Seeder
 
                 )
             );
-            \DB::table('user_profile')->insert(
+            \DB::table('user_profiles')->insert(
                 array(
                     'user_id' => $id,
-                    'fscebook' => $fake->userName,
-                    'twitter' => $fake->userName
+                    'bio' => $fake->paragraph(rand(2,5)),
+                    'website' => 'https://www.'.$fake->domainName,
+                    'twitter' => 'https://twitter.com/'.$fake->userName,
+                    'birthDate' => $fake->dateTimeBetween($startDate = '-45 years', $endDate = '-15 years')
                 )
             );
         }
