@@ -12,7 +12,7 @@ class AdminTableSeeder extends Seeder
         $fake = Fake::create();
 
         for ($i = 0; $i < 30; $i++) {
-            \DB::table('users')->insert(
+           $id = \DB::table('users')->insertGetId(
                 $arrayName = array(
                     'first_name' => $fake->firstName,
                     'last_name' => $fake->lastName,
@@ -20,6 +20,13 @@ class AdminTableSeeder extends Seeder
                     'password' => \Hash::make('123456'),
                     'type' => 'admin'
 
+                )
+            );
+            \DB::table('user_profile')->insert(
+                array(
+                    'user_id' => $id,
+                    'fscebook' => $fake->userName,
+                    'twitter' => $fake->userName
                 )
             );
         }
