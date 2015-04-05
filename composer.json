@@ -1,6 +1,6 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "api/laravel",
+	"description": "Este proyecto esta enfocado en crear un api Rest con laravel",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",

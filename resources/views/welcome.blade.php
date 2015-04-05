@@ -43,6 +43,11 @@
 				<div class="title">Laravel 5</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
+            <form action="/admin/users" method="POST">
+
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <input type="submit" value="send">
+            </form>
 		</div>
 	</body>
 </html>

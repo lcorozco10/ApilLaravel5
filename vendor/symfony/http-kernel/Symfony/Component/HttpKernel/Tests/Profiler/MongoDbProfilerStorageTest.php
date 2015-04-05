@@ -84,13 +84,13 @@ class MongoDbProfilerStorageTest extends AbstractProfilerStorageTest
                 'symfony_tests',
                 'profiler_data',
             )),
-            array('mongodb://user:password@localhost/admin/symfony_tests/profiler_data', array(
-                'mongodb://user:password@localhost/admin',
+            array('mongodb://user:password@localhost/Admin/symfony_tests/profiler_data', array(
+                'mongodb://user:password@localhost/Admin',
                 'symfony_tests',
                 'profiler_data',
             )),
-            array('mongodb://user:password@localhost:27009,localhost:27010/?replicaSet=rs-name&authSource=admin/symfony_tests/profiler_data', array(
-                'mongodb://user:password@localhost:27009,localhost:27010/?replicaSet=rs-name&authSource=admin',
+            array('mongodb://user:password@localhost:27009,localhost:27010/?replicaSet=rs-name&authSource=Admin/symfony_tests/profiler_data', array(
+                'mongodb://user:password@localhost:27009,localhost:27010/?replicaSet=rs-name&authSource=Admin',
                 'symfony_tests',
                 'profiler_data',
             )),
