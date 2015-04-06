@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Useri;
 use Illuminate\Support\Facades\Request;
 
 class UsersController extends Controller {
@@ -62,7 +63,11 @@ class UsersController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+
+
+        //$useri = Useri::findOrfail($id);
+        $useri = Useri::paginate(5);
+        return response()->json($useri);
 	}
 
 	/**

@@ -6,7 +6,8 @@ use Illuminate\Database\Seeder;
 class AdminTableSeeder extends Seeder
 {
 	
-	public function run($value='')    {
+	public function run($value='') {
+
         $id = \DB::table('users')->insertGetId(
             array(
                 'first_name' => 'Luis',
@@ -21,8 +22,7 @@ class AdminTableSeeder extends Seeder
             array(
                 'user_id' => $id,
                 'birthDate' => '2015/03/31'
-            ))
-        ;
-
+            )
+        );
     }
 }
