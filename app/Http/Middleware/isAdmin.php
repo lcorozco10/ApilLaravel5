@@ -1,9 +1,19 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Contracts\Auth\Guard;
 
-class VerifyCsrfToken extends BaseVerifier {
+class isAdmin {
+
+    /**
+     * @var Guard
+     */
+    private $auth;
+
+    public function __construct(Guard $auth){
+
+        $this->auth = $auth;
+    }
 
 	/**
 	 * Handle an incoming request.
@@ -14,7 +24,8 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		return parent::handle($request, $next);
+
+		return $next($request);
 	}
 
 }
