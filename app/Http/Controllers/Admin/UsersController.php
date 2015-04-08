@@ -4,7 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Useri;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller {
 
@@ -48,9 +50,13 @@ class UsersController extends Controller {
 	{
 		//
 
-        $user = new User(Request::all());
-        $user->save();
-        return response()->json(Request::all());
+        //$user = new User(Request::all());
+        //$user->save();
+        //$joder = Input::all();
+        //var_dump(Input::all());
+        //Request::ajax()
+        //return response()->json('Todo not found', 401);
+       return response()->json(Request::ajax());
 
 
 	}

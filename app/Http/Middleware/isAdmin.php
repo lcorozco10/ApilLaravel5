@@ -24,8 +24,13 @@ class isAdmin {
 	 */
 	public function handle($request, Closure $next)
 	{
-
-		return $next($request);
+        dd($this->auth->validate());
+        //dd($request->all());
+        if($this->auth->user()->type=="Admin"){
+            return $next($request);
+        };
+        $this->auth->logout();
+        return redirect()->guest('auth/login');
 	}
 
 }
