@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace Myapi\Http\Controllers\Admin;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\User;
-use App\Useri;
+use Myapi\Http\Requests;
+use Myapi\Http\Controllers\Controller;
+use Myapi\User;
+use Myapi\Useri;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
@@ -49,17 +49,18 @@ class UsersController extends Controller {
 	public function store()
 	{
 		//
-
-        //$user = new User(Request::all());
-        //$user->save();
+        $user = new User(Request::all());
+        $user->save();
         //$joder = Input::all();
         //var_dump(Input::all());
         //Request::ajax()
         //return response()->json('Todo not found', 401);
-       return response()->json(Request::ajax());
-
-
-	}
+       return response()->json(
+           array(
+               'status'=>200,
+               'data'=>Request::all())
+       );
+    }
 
 	/**
 	 * Display the specified resource.
@@ -96,10 +97,14 @@ class UsersController extends Controller {
 	public function update($id)
 	{
 		//
+        abort(403, 'Unauthorized action.');
         $user = User::findOrfail($id);
         $user->fill(Request::all());
         $user->save();
-        return response()->json($user);
+        return response()->json(  array(
+                'status'=>200,
+                'data'=>$user)
+        );
 	}
 
 	/**

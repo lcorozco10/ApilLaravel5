@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Myapi;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +33,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function profile()
     {
-        return $this->hasOne('\App\userProfile');
+        return $this->hasOne('\Myapi\userProfile');
     }
 
     public function getFullNameAttribute(){

@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace Myapi\Services;
 
-use App\User;
+use Myapi\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

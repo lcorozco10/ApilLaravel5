@@ -6,8 +6,8 @@
  * Time: 11:14 AM
  */
 
-namespace App\Http\Controllers;
-use App\User;
+namespace Myapi\Http\Controllers;
+use Myapi\User;
 
 class UserController extends Controller {
 

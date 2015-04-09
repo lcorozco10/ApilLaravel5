@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace Myapi;
 
 use Illuminate\Database\Eloquent\Model;
 
