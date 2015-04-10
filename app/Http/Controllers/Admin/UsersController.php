@@ -4,7 +4,6 @@ use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
-
 use Myapi\Useri;
 use Tests\Unit\Database\Traits\CamelCaseModelTest;
 

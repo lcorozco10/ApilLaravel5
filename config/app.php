@@ -135,8 +135,11 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-        'Eloquence\EloquenceServiceProvider',
 
+        /*
+         * package CamelCase with Eloquence ORM
+         */
+        'Eloquence\EloquenceServiceProvider',
 
 		/*
 		 * Application Service Providers...
