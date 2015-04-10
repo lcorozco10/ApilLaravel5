@@ -2,17 +2,12 @@
 
 use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
-use Myapi\User;
-use Myapi\Useri;
 use Illuminate\Support\Facades\Request;
+
+use Myapi\Useri;
 
 class UsersController extends Controller {
 
-//    private $request;
-//    public function __construct(Request $request){
-//        $this->request =$request;
-//
-//    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -21,10 +16,8 @@ class UsersController extends Controller {
 	public function index()
 	{
 
-		$user = User::paginate(5);
-		//$user->setPath('custom/url');
-		//$user->appends(['sort' => 'first_name'])->render();
-		return response()->json($user);
+        $user = Useri::paginate(5);
+        return response()->json($user);
 	}
 
 	/**
@@ -32,10 +25,10 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create(){
 
-        return "create";
+
+        return "Create Usersi";
 	}
 
 	/**
@@ -45,18 +38,10 @@ class UsersController extends Controller {
 	 */
 	public function store()
 	{
-		//
-        $user = new User(Request::all());
-        $user->save();
-        //$joder = Input::all();
-        //var_dump(Input::all());
-        //Request::ajax()
-        //return response()->json('Todo not found', 401);
-       return response()->json(
-           array(
-               'status'=>200,
-               'data'=>Request::all())
-       );
+        $file = Request::file('photo')->getClientOriginalName();
+        $param = Request::input('name');
+        $users = Useri::where('first_name','=',$param)->get();
+        return response()->json(['data'=>$users, 'file'=>$file]);
     }
 
 	/**
@@ -67,9 +52,10 @@ class UsersController extends Controller {
 	 */
 	public function show($id)
 	{
+		//Get record deleted
+        $users = Useri::onlyTrashed()->get();
 
-        $useri = Useri::paginate(5);
-        return response()->json($useri);
+        return response()->json($users);
 	}
 
 	/**
@@ -81,6 +67,7 @@ class UsersController extends Controller {
 	public function edit($id)
 	{
 		//
+        return "Edit Usersi";
 	}
 
 	/**
@@ -91,15 +78,10 @@ class UsersController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
-        abort(403, 'Unauthorized action.');
-        $user = User::findOrfail($id);
-        $user->fill(Request::all());
-        $user->save();
-        return response()->json(  array(
-                'status'=>200,
-                'data'=>$user)
-        );
+		//Restore rows deleted
+        $user = Useri::withTrashed()->where('id', $id)->restore();
+        return response()->json($user);
+
 	}
 
 	/**
@@ -110,9 +92,10 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-
-        User::destroy($id);
-        return 'User delited';
+		//delete user with softDelete
+        $user = Useri::findOrfail($id);
+        //$user->forceDelete(); //Force delete
+        return response()->json($user);
 	}
 
 }

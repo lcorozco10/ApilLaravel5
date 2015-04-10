@@ -21,8 +21,13 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::group(['prefix'=>'admin'/*,'middleware'=>['auth','is_admin']*/,'namespace'=>'\Admin'],function(){
-	Route::resource('users','UsersController');
-    Route::resource('usersi','UsersiController');
+
+Route::group(['prefix'=>'admin',/*'middleware'=>['auth','is_admin'],*/'namespace'=>'\Admin'],function(){
+
+    #Resource User Admin
+	Route::resource('user','UserController');
+
+    #Resource Seller Controller Routes
+    Route::resource('users','UsersController');
 
 });
