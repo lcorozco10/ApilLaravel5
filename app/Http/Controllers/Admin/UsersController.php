@@ -4,7 +4,9 @@ use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
+
 use Myapi\Useri;
+use Tests\Unit\Database\Traits\CamelCaseModelTest;
 
 class UsersController extends Controller {
 
@@ -38,6 +40,7 @@ class UsersController extends Controller {
 	 */
 	public function store()
 	{
+
         $file = Request::file('photo')->getClientOriginalName();
         $param = Request::input('name');
         $users = Useri::where('first_name','=',$param)->get();
