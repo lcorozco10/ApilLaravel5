@@ -4,9 +4,7 @@ use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Myapi\User;
 use Myapi\Useri;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller {
 
@@ -22,11 +20,10 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-		//
+
 		$user = User::paginate(5);
 		//$user->setPath('custom/url');
 		//$user->appends(['sort' => 'first_name'])->render();
-
 		return response()->json($user);
 	}
 
@@ -37,7 +34,7 @@ class UsersController extends Controller {
 	 */
 	public function create()
 	{
-		//
+
         return "create";
 	}
 
@@ -71,8 +68,6 @@ class UsersController extends Controller {
 	public function show($id)
 	{
 
-
-        //$useri = Useri::findOrfail($id);
         $useri = Useri::paginate(5);
         return response()->json($useri);
 	}
@@ -115,7 +110,7 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+
         User::destroy($id);
         return 'User delited';
 	}

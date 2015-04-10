@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div class='data'></div>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript">
+
+		$.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': "SZjvtZKYmI6fO3DNQ9sidGfGn0bPbW8JwwVRqUPK"
+	        }
+	    });
+		
+		$.ajax({
+
+			method: "POST",
+			url: "http://localhost:8000/auth/login",		  	 
+		  	dataType:"html",
+		  	data: { email: "lcorozco10@gmail.com", password: "123456789" }
+
+		})
+		.done(function(msg) {
+   			//alert( "Data Saved: " + msg );
+   			//data = JSON.parse(msg);
+			$('.data').html(msg);
+  		})
+  		.fail(function(jqXHR, textStatus, errorThrown) {
+    		console.log( "Request failed: " + textStatus );
+    		console.log( "Request jqXHR: " + jqXHR.success() );
+    		console.log( "Request errorThrown: " + errorThrown );
+  		})
+  		.always(function() {
+    		//alert( "complete" );
+  		});
+		
+
+	</script>
+</body>
+</html>

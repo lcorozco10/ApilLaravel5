@@ -23,5 +23,6 @@ Route::controllers([
 
 Route::group(['prefix'=>'admin'/*,'middleware'=>['auth','is_admin']*/,'namespace'=>'\Admin'],function(){
 	Route::resource('users','UsersController');
+    Route::resource('usersi','UsersiController');
 
 });
