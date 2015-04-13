@@ -5,7 +5,6 @@ use Myapi\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
 use Myapi\Useri;
-use Tests\Unit\Database\Traits\CamelCaseModelTest;
 
 class UsersController extends Controller {
 
@@ -83,7 +82,6 @@ class UsersController extends Controller {
 		//Restore rows deleted
         $user = Useri::withTrashed()->where('id', $id)->restore();
         return response()->json($user);
-
 	}
 
 	/**
@@ -99,5 +97,4 @@ class UsersController extends Controller {
         //$user->forceDelete(); //Force delete
         return response()->json($user);
 	}
-
 }
