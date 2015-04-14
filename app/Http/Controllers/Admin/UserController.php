@@ -1,10 +1,11 @@
 <?php namespace Myapi\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Input;
 use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Myapi\User;
-use Myapi\Useri;
 use Illuminate\Support\Facades\Request;
+use Myapi\userProfile;
 
 class UserController extends Controller {
 
@@ -20,10 +21,12 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
+        /**
+         * Get all Users Profiles
+         */
+        $user = User::with('profile')
+               ->paginate(5);
 
-		$user = User::paginate(5);
-		//$user->setPath('custom/url');
-		//$user->appends(['sort' => 'first_name'])->render();
 		return response()->json($user);
 	}
 
@@ -35,7 +38,7 @@ class UserController extends Controller {
 	public function create()
 	{
 
-        return "create";
+        return "create form";
 	}
 
 	/**
@@ -45,9 +48,34 @@ class UserController extends Controller {
 	 */
 	public function store()
 	{
-		//
-        $user = new User(Request::all());
-        $user->save();
+        $userInput = array(
+            'user_name' => Request::input('user_name'),
+            'password' => Request::input('password'),
+            'email' => Request::input('email'),
+            'roll' => Request::input('roll'),
+        );
+        $profileInput = array(
+            'first_name' => Request::input('first_name'),
+            'last_name' => Request::input('last_name'),
+            'website' => Request::input('website'),
+            'description' => Request::input('description'),
+            'twitter' => Request::input('twitter'),
+            'birthDate' => Request::input('birthDate'),
+            'avatar_url' => Request::input('avatar_url'),
+            'identification' => Request::input('identification')
+        );
+
+        $user = User::firstOrCreate($userInput);//->getAuthIdentifier();
+
+        $profile = new userProfile($profileInput);
+
+        // $post = Post::find(1);
+        //$result = $user->profile()->save($profile);
+
+
+        //$user = new User(Request::all());
+        //
+        //$user->save();
         //$joder = Input::all();
         //var_dump(Input::all());
         //Request::ajax()
@@ -55,7 +83,8 @@ class UserController extends Controller {
        return response()->json(
            array(
                'status'=>201,
-               'data'=>Request::all())
+               'data'=>Request::all(),
+           )
        );
     }
 

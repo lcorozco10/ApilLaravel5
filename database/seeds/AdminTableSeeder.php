@@ -10,18 +10,24 @@ class AdminTableSeeder extends Seeder
 
         $id = \DB::table('users')->insertGetId(
             array(
-                'first_name' => 'Luis',
-                'last_name' => 'Orozco',
+                'user_name' => 'lcorozco10',
+                'password' => \Hash::make('123456'),
                 'email' => 'lcorozco10@gmail.com',
-                'password' => \Hash::make('123456789'),
-                'type' => 'Admin'
+                'roll' => 'admin'
             )
         );
 
-        \DB::table('user_profiles')->insert(
+        \DB::table('users_profiles')->insert(
             array(
                 'user_id' => $id,
-                'birthDate' => '2015/03/31'
+                'first_name' => 'Luis',
+                'last_name' => 'Orozco',
+                'website' => 'https://www.lcorozco.com',
+                'description' => 'Web App, Laravel, Boostrap, Jquery, AgularJs, NodeJS, Ajax, RestFul, ReactJs, Rail, Sinatra',
+                'twitter' => 'https://twitter.com/lcorozco10',
+                'birthDate' => '2015/13/04',
+                'avatar_url'=> 'https://www.google.com.ni/images/srpr/logo11w.png',
+                'identification'=> '000000001'
             )
         );
     }

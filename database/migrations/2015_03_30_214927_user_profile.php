@@ -12,14 +12,17 @@ class UserProfile extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_profiles', function(Blueprint $table)
+		Schema::create('users_profiles', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->mediumText('bio')->nullable();
+            $table->string('first_name',50);
+            $table->string('last_name')->nullable();
             $table->mediumText('website')->nullable();
+            $table->text('description')->nullable();
             $table->string('twitter')->nullable();
             $table->date('birthDate')->nullable();
-
+            $table->string('avatar_url')->nullable();
+            $table->string('identification',30)->unique();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')
@@ -38,7 +41,7 @@ class UserProfile extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_profiles');
+		Schema::drop('users_profiles');
 	}
 
 }
