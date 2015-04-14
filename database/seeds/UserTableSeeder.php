@@ -30,7 +30,7 @@ class UserTableSeeder extends Seeder
                     'website' => 'https://www.'.$fake->domainName,
                     'description' => $fake->paragraph(rand(2,5)),
                     'twitter' => 'https://twitter.com/'.$fake->userName,
-                    'birthDate' => $fake->dateTimeBetween($startDate = '-45 years', $endDate = '-15 years'),
+                    'birth_date' => $fake->dateTimeBetween($startDate = '-45 years', $endDate = '-15 years'),
                     'avatar_url'=>$fake->imageUrl($width = 640, $height = 480),
                     'identification'=>$fake->unique()->numberBetween($min = 10000, $max = 90000)
                 )

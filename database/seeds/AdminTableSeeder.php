@@ -25,7 +25,7 @@ class AdminTableSeeder extends Seeder
                 'website' => 'https://www.lcorozco.com',
                 'description' => 'Web App, Laravel, Boostrap, Jquery, AgularJs, NodeJS, Ajax, RestFul, ReactJs, Rail, Sinatra',
                 'twitter' => 'https://twitter.com/lcorozco10',
-                'birthDate' => '2015/13/04',
+                'birth_date' => '2015/13/04',
                 'avatar_url'=> 'https://www.google.com.ni/images/srpr/logo11w.png',
                 'identification'=> '000000001'
             )

@@ -1,6 +1,7 @@
 <?php namespace Myapi\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Myapi\User;
@@ -48,41 +49,62 @@ class UserController extends Controller {
 	 */
 	public function store()
 	{
+
+
+        $v = Validator::make(Request::all(), [
+            'user_name' => 'required|unique:users|max:255',
+            'password' => 'required',
+            'email' => 'required|unique:users|max:255',
+            'roll' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'website' => 'required',
+            'description' => 'required',
+            'twitter' => 'required',
+            'birth_date' => 'required',
+            'avatar_url' => 'required',
+            'identification' => 'required|unique:users_profiles|max:255',
+        ]);
+
+        if ($v->fails())
+        {
+            dd($v->errors());
+            //return $v->errors();
+        }
+
         $userInput = array(
             'user_name' => Request::input('user_name'),
             'password' => Request::input('password'),
             'email' => Request::input('email'),
-            'roll' => Request::input('roll'),
+            'roll' => Request::input('roll')
         );
+
         $profileInput = array(
             'first_name' => Request::input('first_name'),
             'last_name' => Request::input('last_name'),
             'website' => Request::input('website'),
             'description' => Request::input('description'),
             'twitter' => Request::input('twitter'),
-            'birthDate' => Request::input('birthDate'),
+            'birth_date' => Request::input('birthDate'),
             'avatar_url' => Request::input('avatar_url'),
             'identification' => Request::input('identification')
         );
 
-        $user = User::firstOrCreate($userInput);//->getAuthIdentifier();
+        //$user = User::firstOrCreate($userInput); //->getAuthIdentifier();
+       /* $user = User::create(array('user_name' => Request::input('user_name')));
+        $user->password = Input::get('password');
+        $user->email = Input::get('email');
+        $user->roll = Input::get('roll');
+        $user->save();*/
 
+        $user = new User($userInput);
+        $user->save();
         $profile = new userProfile($profileInput);
+        $result = $user->profile()->save($profile);
 
-        // $post = Post::find(1);
-        //$result = $user->profile()->save($profile);
-
-
-        //$user = new User(Request::all());
-        //
-        //$user->save();
-        //$joder = Input::all();
-        //var_dump(Input::all());
-        //Request::ajax()
-        //return response()->json('Todo not found', 401);
        return response()->json(
            array(
-               'status'=>201,
+               'status'=>200,
                'data'=>Request::all(),
            )
        );

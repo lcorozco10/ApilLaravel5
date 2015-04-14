@@ -20,7 +20,7 @@ class UserProfile extends Migration {
             $table->mediumText('website')->nullable();
             $table->text('description')->nullable();
             $table->string('twitter')->nullable();
-            $table->date('birthDate')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('avatar_url')->nullable();
             $table->string('identification',30)->unique();
             $table->integer('user_id')->unsigned();

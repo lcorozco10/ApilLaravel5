@@ -18,6 +18,13 @@ class userProfile extends Model {
     protected $table = 'users_profiles';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['first_name','last_name', 'website', 'description','twitter','birth_date','avatar_url','identification','user_id'];
+
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array

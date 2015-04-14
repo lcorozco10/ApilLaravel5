@@ -29,6 +29,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
+
 	protected $fillable = ['user_name','password', 'email', 'roll'];
 
 	/**
@@ -45,6 +46,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasOne('\Myapi\userProfile');
     }
+
 
     public function getFullNameAttribute(){
         return $this->first_name.' '.$this->last_name;
