@@ -1,20 +1,21 @@
 <?php namespace Myapi\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
+
 use Myapi\Http\Requests;
+use Myapi\Http\Requests\userRequest;
 use Myapi\Http\Controllers\Controller;
-use Myapi\User;
 use Illuminate\Support\Facades\Request;
+use Myapi\User;
 use Myapi\userProfile;
 
 class UserController extends Controller {
 
-//    private $request;
-//    public function __construct(Request $request){
-//        $this->request =$request;
-//
-//    }
+    /*private $request;
+    public function __construct(Request $request){
+        $this->request =$request;
+
+    }*/
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -28,7 +29,10 @@ class UserController extends Controller {
         $user = User::with('profile')
                ->paginate(5);
 
-		return response()->json($user);
+        return response()->json(
+           $user,
+            201
+        );
 	}
 
 	/**
@@ -47,31 +51,8 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(userRequest $request)
 	{
-
-
-        $v = Validator::make(Request::all(), [
-            'user_name' => 'required|unique:users|max:255',
-            'password' => 'required',
-            'email' => 'required|unique:users|max:255',
-            'roll' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'website' => 'required',
-            'description' => 'required',
-            'twitter' => 'required',
-            'birth_date' => 'required',
-            'avatar_url' => 'required',
-            'identification' => 'required|unique:users_profiles|max:255',
-        ]);
-
-        if ($v->fails())
-        {
-            dd($v->errors());
-            //return $v->errors();
-        }
-
         $userInput = array(
             'user_name' => Request::input('user_name'),
             'password' => Request::input('password'),
@@ -90,23 +71,16 @@ class UserController extends Controller {
             'identification' => Request::input('identification')
         );
 
-        //$user = User::firstOrCreate($userInput); //->getAuthIdentifier();
-       /* $user = User::create(array('user_name' => Request::input('user_name')));
-        $user->password = Input::get('password');
-        $user->email = Input::get('email');
-        $user->roll = Input::get('roll');
-        $user->save();*/
-
         $user = new User($userInput);
         $user->save();
         $profile = new userProfile($profileInput);
         $result = $user->profile()->save($profile);
 
-       return response()->json(
+        return response()->json(
            array(
-               'status'=>200,
                'data'=>Request::all(),
-           )
+           ),
+           201
        );
     }
 
@@ -119,8 +93,14 @@ class UserController extends Controller {
 	public function show($id)
 	{
 
-        $useri = Useri::paginate(5);
-        return response()->json($useri);
+        $user = User::with('profile')
+            ->where('users.id','=',$id)
+            ->get();
+
+        return response()->json(
+            $user,
+            201
+        );
 	}
 
 	/**
@@ -134,7 +114,7 @@ class UserController extends Controller {
 		//
 	}
 
-	/**
+    /**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
@@ -142,14 +122,32 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-	    //
-        //abort(403, 'Unauthorized action.');
-        $user = User::findOrfail($id);
-        $user->fill(Request::all());
-        $user->save();
-        return response()->json(  array(
-                'status'=>200,
-                'data'=>$user)
+        $userInput = array(
+            'user_name' => Request::input('user_name'),
+            'password' => Request::input('password'),
+            'email' => Request::input('email'),
+            'roll' => Request::input('roll')
+        );
+
+        $profileInput = array(
+            'first_name' => Request::input('first_name'),
+            'last_name' => Request::input('last_name'),
+            'website' => Request::input('website'),
+            'description' => Request::input('description'),
+            'twitter' => Request::input('twitter'),
+            'birth_date' => Request::input('birthDate'),
+            'avatar_url' => Request::input('avatar_url'),
+            'identification' => Request::input('identification')
+        );
+
+        $user = User::find($id);
+        $profile = $user->profile;
+        $profile->first_name = 'Barte';
+        $user->profile()->save($profile);
+
+        return response()->json(
+            $user,
+            201
         );
 	}
 

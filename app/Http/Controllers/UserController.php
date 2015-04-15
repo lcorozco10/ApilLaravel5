@@ -22,7 +22,7 @@ class UserController extends Controller {
             ->where('users.first_name','<>','Luis')
             ->orderBy('users.first_name','ASC')
             ->get(array('users.first_name'));
-        dd($user->toArray());
+        dd($user);
         //return response()->json($user->toArray());
 
     }

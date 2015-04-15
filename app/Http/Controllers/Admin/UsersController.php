@@ -4,7 +4,7 @@ use Myapi\Http\Requests;
 use Myapi\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
-use Myapi\ModelUser\Useri;
+use Myapi\User;
 
 class UsersController extends Controller {
 
@@ -15,8 +15,7 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
-        $user = Useri::paginate(5);
-        return response()->json($user);
+
 	}
 
 	/**
@@ -37,14 +36,7 @@ class UsersController extends Controller {
 	 */
 	public function store()
 	{
-        //$file = Request::file('photo')->getClientOriginalName();
-        //$param = Request::input('name');
 
-        $user = new User(Request::all());
-        $user->save();
-
-        $users = Useri::where('first_name','=',$param)->get();
-        return response()->json(['data'=>$users, 'file'=>$file]);
     }
 
 	/**
