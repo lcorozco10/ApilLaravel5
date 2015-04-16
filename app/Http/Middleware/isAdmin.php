@@ -28,7 +28,7 @@ class isAdmin {
         //dd($request->all());
         if($this->auth->user()->type=="Admin"){
             return $next($request);
-        };
+        }
         $this->auth->logout();
         return redirect()->guest('auth/login');
 	}

@@ -134,7 +134,7 @@ class UserController extends Controller {
         //$user = User::findOrfail($id);
 
         $user = $this->user;
-        $user->delete();
+        //$user->delete();
         return response()->json(
             $user,
             201
