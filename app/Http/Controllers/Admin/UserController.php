@@ -1,6 +1,6 @@
 <?php namespace Myapi\Http\Controllers\Admin;
 
-
+use Illuminate\Routing\Route;
 use Myapi\Http\Requests;
 use Myapi\Http\Requests\userRequest;
 use Myapi\Http\Controllers\Controller;
@@ -10,11 +10,14 @@ use Myapi\userProfile;
 
 class UserController extends Controller {
 
-    /*private $request;
-    public function __construct(Request $request){
-        $this->request =$request;
+    protected $user;
+    public function __construct(){
+        $this->beforeFilter('@findUser',['only' => ['update','destroy']]);
+    }
 
-    }*/
+    public function findUser(Route $route){
+        $this->user = User::findOrfail($route->getParameter('user'));
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -53,27 +56,9 @@ class UserController extends Controller {
 	 */
 	public function store(userRequest $request)
 	{
-        $userInput = array(
-            'user_name' => Request::input('user_name'),
-            'password' => Request::input('password'),
-            'email' => Request::input('email'),
-            'roll' => Request::input('roll')
-        );
-
-        $profileInput = array(
-            'first_name' => Request::input('first_name'),
-            'last_name' => Request::input('last_name'),
-            'website' => Request::input('website'),
-            'description' => Request::input('description'),
-            'twitter' => Request::input('twitter'),
-            'birth_date' => Request::input('birthDate'),
-            'avatar_url' => Request::input('avatar_url'),
-            'identification' => Request::input('identification')
-        );
-
-        $user = new User($userInput);
+        $user = new User(Request::all());
         $user->save();
-        $profile = new userProfile($profileInput);
+        $profile = new userProfile(Request::all());
         $result = $user->profile()->save($profile);
 
         return response()->json(
@@ -122,31 +107,16 @@ class UserController extends Controller {
 	 */
 	public function update($id)
 	{
-        $userInput = array(
-            'user_name' => Request::input('user_name'),
-            'password' => Request::input('password'),
-            'email' => Request::input('email'),
-            'roll' => Request::input('roll')
-        );
+        $user = $this->user;
+        $user->fill(Request::all());
 
-        $profileInput = array(
-            'first_name' => Request::input('first_name'),
-            'last_name' => Request::input('last_name'),
-            'website' => Request::input('website'),
-            'description' => Request::input('description'),
-            'twitter' => Request::input('twitter'),
-            'birth_date' => Request::input('birthDate'),
-            'avatar_url' => Request::input('avatar_url'),
-            'identification' => Request::input('identification')
-        );
-
-        $user = User::find($id);
         $profile = $user->profile;
-        $profile->first_name = 'Barte';
-        $user->profile()->save($profile);
+        $profile->fill(Request::all());
+
+        $user->push();
 
         return response()->json(
-            $user,
+            Request::all(),
             201
         );
 	}
@@ -159,9 +129,16 @@ class UserController extends Controller {
 	 */
 	public function destroy($id)
 	{
+        //$user = User::withTrashed()->where('id', $id)->restore();     //Restore rows deleted
+        //$user = User::onlyTrashed()->get();                           //Get all record deleted
+        //$user = User::findOrfail($id);
 
-        User::destroy($id);
-        return 'User delited';
+        $user = $this->user;
+        $user->delete();
+        return response()->json(
+            $user,
+            201
+        );
 	}
 
 }

@@ -1,5 +1,4 @@
 <?php namespace Myapi\Http\Requests;
-//use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Response;
 
@@ -38,7 +37,6 @@ class userRequest extends Request {
             'identification' => 'required|unique:users_profiles|max:255',
 		];
 	}
-
 
     public function response(array $errors)
     {

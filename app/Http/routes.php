@@ -27,7 +27,4 @@ Route::group(['prefix'=>'admin',/*'middleware'=>['auth','is_admin'],*/'namespace
     #Resource User Admin
 	Route::resource('user','UserController');
 
-    #Resource Seller Controller Routes
-    Route::resource('users','UsersController');
-
 });

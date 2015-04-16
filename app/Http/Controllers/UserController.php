@@ -49,7 +49,6 @@ class UserController extends Controller {
             $row->age = \Carbon\Carbon::parse($row->birthDate)->age;
         }
 
-        //dd($result);
         dd($result);
         return $result;
 
