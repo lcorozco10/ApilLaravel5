@@ -47,7 +47,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasOne('\Myapi\userProfile');
     }
 
-
     public function getFullNameAttribute(){
         return $this->first_name.' '.$this->last_name;
     }
